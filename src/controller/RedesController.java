@@ -70,9 +70,11 @@ public class RedesController
 		
 	}
 	
-	public void readProcessPing(String process){
+	public void readProcessPing(String process, int sistema){
 		
-		int media = 0, cont= 0;
+		float media = 0, x = 0;;
+		int cont= 0, i, j;
+		String msg;
 		
 		try {
 			Process p = Runtime.getRuntime().exec(process);
@@ -82,13 +84,24 @@ public class RedesController
 			String linha = buffer.readLine();
 			while (linha != null) { //
 				
-				if (linha.contains("Resposta")){
-					int i = linha.indexOf("=");
-					int j = linha.indexOf("ms");
-					String ms = linha.substring(i+1, j);
-					int x = Integer.parseInt(ms);
-					media = media + x;
-					cont++;
+				if (sistema == 1){
+					if (linha.contains("Resposta")){
+						i = linha.indexOf("=");
+						j = linha.indexOf("ms");
+						msg = linha.substring(i+1, j);
+						x = Integer.parseInt(msg);
+						media = media + x;
+						cont++;
+					}
+				} else {
+					if (linha.contains("Resposta")){
+						i = linha.lastIndexOf("time=");
+						j = linha.lastIndexOf(" ms");
+						msg = linha.substring(i+1, j);
+						x = Integer.parseInt(msg);
+						media = media + x;
+						cont++;
+					}
 				}
 				
 				linha = buffer.readLine();

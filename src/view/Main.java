@@ -43,7 +43,7 @@ public class Main {
 						process = "PING –c 10 www.google.com.br";
 					}
 
-					rc.readProcessPing(process);
+					rc.readProcessPing(process, system);
 				}	
 				break;
 			case 9:
